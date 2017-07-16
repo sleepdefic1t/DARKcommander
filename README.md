@@ -1,7 +1,6 @@
 # DARKcommander.sh 
 
-<div style="float:left;margin:199 10px 10px 0" markdown="1">
-  <img style="float: right;" src="https://github.com/Jarunik/ark-media/blob/master/logo/ark-logo-flat-black-512.png" alt="courtesy https://github.com/Jarunik/ark-media" width="256" height="256">
+<img style="float: right;" src="https://github.com/Jarunik/ark-media/blob/master/logo/ark-logo-flat-black-512.png" alt="courtesy https://github.com/Jarunik/ark-media" width="256" height="256">
 
 </div>
 
