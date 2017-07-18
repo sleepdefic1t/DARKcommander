@@ -4,6 +4,11 @@
 
 </div>
 
+DARKcommander.sh is an ark_devnet bash script for [ark-node](https://github.com/ArkEcosystem/ark-node)
+
+Step-by-step setup guide by @boldninja  
+- [How to setup a node](https://blog.ark.io/how-to-setup-a-node-for-ark-and-a-basic-cheat-sheet-4f82910719da)
+
 
 ```bash
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~#
