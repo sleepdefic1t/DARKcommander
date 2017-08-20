@@ -208,7 +208,7 @@ function proc_vars {
         top_lvl=$(top_level_parent_pid $node)
 
         # Looking for dark-node installations and performing actions
-        arkdir=`locate -b ark-node`
+        arkdir=`locate -b ark-node --limit=1`
 
         # Getting the parent of the install path
         parent=`dirname $arkdir 2>&1`
