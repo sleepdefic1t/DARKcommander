@@ -477,7 +477,7 @@ function log_rotate {
 		if [ ! -f /etc/logrotate.d/ark-logrotate ]; then
 			echo -e " Setting up Logrotate for ARK node log files."
 			sudo bash -c "cat << 'EOF' >> /etc/logrotate.d/ark-logrotate
-$HOME/$arkdir/logs/ark.log {
+$arkdir/logs/ark.log {
         size=50M
         copytruncate
         create 660 $USER $USER
@@ -496,7 +496,7 @@ EOF"
 		fi
 	fi
 }
-                                      
+
 # GIT Update Check
 function git_upd_check {
 
@@ -524,7 +524,7 @@ function git_upd_check {
 	fi
 
 }
-                                      
+
 # Install PostgreSQL
 function inst_pgdb {
         sudo apt install -yyq postgresql postgresql-contrib >&- 2>&-
@@ -548,7 +548,7 @@ function purge_pgdb {
 			sleep 1
 			drop_db
 			drop_user
-						
+
         		# stop the DB if running first...
 		        sudo service postgresql stop
 		        sleep 1
@@ -584,7 +584,7 @@ if [ "$(ls -A $SNAPDIR)" ]; then
 			if [[ "$YN" =~ [Yy]$ ]]; then
 				echo -e "$(yellow "\n     Downloading latest devnet snapshot from ARK.IO\n")"
 				rm $SNAPDIR/current
-				wget -nv https://dexplorer.ark.io/current -O $SNAPDIR/current
+				wget -nv https://dsnapshots.ark.io/current -O $SNAPDIR/current
 				echo -e "$(yellow "\n              Download finished\n")"
 			fi
 	fi
@@ -621,7 +621,7 @@ else
         read -e -r -p "$(yellow "\n Would you like to download the latest devnet snapshot? (Y/n) ")" -i "Y" YN
         if [[ "$YN" =~ [Yy]$ ]]; then
 		echo -e "$(yellow "\n     Downloading current devnet snapshot from ARK.IO\n")"
-                wget -nv https://dexplorer.ark.io/current -O $SNAPDIR/current
+                wget -nv https://dsnapshots.ark.io/current -O $SNAPDIR/current
 		echo -e "$(yellow "\n              Download finished\n")"
         fi
 
@@ -819,13 +819,15 @@ function update_ark {
 
 # Put the password in config.devnet.json
 function secret {
-        echo -e "\n"
-	#Put check if arkdir is empty, if it is stays only config.devnet.json
-	echo -e "$(yellow " Enter (copy/paste) your private key (secret)")"
-	echo -e "$(yellow "    (WITHOUT QUOTES!) followed by 'Enter'")"
-        read -e -r -p ": " secret
-#        sed -i "s/\"secret\":\ \[/& \"$secret\"\ /" $arkdir/config.devnet.json
-	sed -i "/.*secret.*/c\ \ \ \ \"secret\":\ \[\ \"$secret\"\ \]\," $arkdir/config.devnet.json
+    echo -e "\n"
+
+    #Put check if arkdir is empty, if it is stays only config.devnet.json
+    echo -e "$(yellow " Enter (copy/paste) your private key (secret)")"
+    echo -e "$(yellow "    (WITHOUT QUOTES!) followed by 'Enter'")"
+    read -e -r -p ": " secret
+
+    cd $arkdir
+    jq -r ".forging.secret = [\"$secret\"]" config.$GIT_ORIGIN.json > config.$GIT_ORIGIN.tmp && mv config.$GIT_ORIGIN.tmp config.$GIT_ORIGIN.json
 }
 
 ### Menu Options ###
@@ -1177,7 +1179,7 @@ subfive(){
         clear
 	asciiart
 	purge_pgdb
-                             
+
 }
 
 subsix(){
